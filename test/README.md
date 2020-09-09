@@ -48,10 +48,10 @@ Details (average, fastest, slowest):
   resp read:    0.0002 secs, 0.0000 secs, 0.0512 secs   
          
 Status code distribution:   
-	\[200\] 4972 responses   
+	[200] 4972 responses   
 
 Error distribution:   
-	\[28\]  Post https://dtapi-socket-z5m7rjds5q-uc.a.run.app/api/Login/index: net/http: request canceled (Client.Timeout exceeded while awaiting headers)   
+	[28]  Post https://dtapi-socket-z5m7rjds5q-uc.a.run.app/api/Login/index: net/http: request canceled (Client.Timeout exceeded while awaiting headers)   
 ```
 
 ![MySQL](./test_mysql.png)   
