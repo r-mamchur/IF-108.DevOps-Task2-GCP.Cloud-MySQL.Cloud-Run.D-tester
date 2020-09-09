@@ -1,0 +1,48 @@
+17:51
+./hey -n 5000 -c 200 -m POST  -H "Content-Type: application/json;charset=utf8" -d '{"username":"admin", "password":"dtapi_admin"}'  https://dtapi-socket-z5m7rjds5q-uc.a.run.app/api/Login/index
+
+Summary:
+  Total:        68.9506 secs
+  Slowest:      19.8207 secs
+  Fastest:      0.0548 secs
+  Average:      0.6902 secs
+  Requests/sec: 72.5157
+
+  Total data:   333203 bytes
+  Size/request: 71 bytes
+
+Response time histogram:
+  0.055 [1]     |
+  2.031 [4432]  |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+  4.008 [149]   |■
+  5.985 [42]    |
+  7.961 [30]    |
+  9.938 [13]    |
+  11.914 [4]    |
+  13.891 [3]    |
+  15.868 [3]    |
+  17.844 [3]    |
+  19.821 [13]   |
+
+
+Latency distribution:
+  10% in 0.0741 secs
+  25% in 0.1073 secs
+  50% in 0.2469 secs
+  75% in 0.7289 secs
+  90% in 1.5752 secs
+  95% in 2.1383 secs
+  99% in 7.4815 secs
+
+Details (average, fastest, slowest):
+  DNS+dialup:   0.0335 secs, 0.0548 secs, 19.8207 secs
+  DNS-lookup:   0.0108 secs, 0.0000 secs, 4.9428 secs
+  req write:    0.0077 secs, 0.0000 secs, 0.5586 secs
+  resp wait:    0.6445 secs, 0.0547 secs, 19.8205 secs
+  resp read:    0.0004 secs, 0.0000 secs, 0.3252 secs
+
+Status code distribution:
+  [200] 4693 responses
+
+Error distribution:
+  [307] Post https://dtapi-socket-z5m7rjds5q-uc.a.run.app/api/Login/index: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
