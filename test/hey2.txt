@@ -1,4 +1,3 @@
-17:09
 ./hey -n 5000 -c 200 -m POST  -H "Content-Type: application/json;charset=utf8" -d '{"username":"admin", "password":"dtapi_admin"}'  https://dtapi-socket-z5m7rjds5q-uc.a.run.app/api/Login/index
 
 Summary:
