@@ -6,7 +6,7 @@
 -d '{"username":"admin", "password":"dtapi_admin"}' \
 https://dtapi-socket-z5m7rjds5q-uc.a.run.app/api/Login/index
 ```
-     
+`     
 Summary:   
   Total:        42.4123 secs   
   Slowest:      12.3232 secs   
@@ -16,8 +16,7 @@ Summary:
 
   Total data:   353012 bytes   
   Size/request: 71 bytes   
-      
-
+    
 Response time histogram:   
   0.041 [1]     |   
   1.269 [4893]  |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■   
@@ -48,14 +47,15 @@ Details (average, fastest, slowest):
   resp read:    0.0002 secs, 0.0000 secs, 0.0512 secs   
      
 Status code distribution:   
-  \[200\] 4972 responses   
+	\[200\] 4972 responses   
      
 Error distribution:   
-	  \[28\]  Post https://dtapi-socket-z5m7rjds5q-uc.a.run.app/api/Login/index: net/http: request canceled (Client.Timeout exceeded while awaiting headers)   
+	\[28\]  Post https://dtapi-socket-z5m7rjds5q-uc.a.run.app/api/Login/index: net/http: request canceled (Client.Timeout exceeded while awaiting headers)   
+`
 
 ![MySQL](./test_mysql.png)   
 Cloud Run   
-!(./test_count.png)   
-!(./test_query.png)   
-!(./test_memory.png)   
+![](./test_count.png)   
+![](./test_query.png)   
+![](./test_memory.png)   
 
