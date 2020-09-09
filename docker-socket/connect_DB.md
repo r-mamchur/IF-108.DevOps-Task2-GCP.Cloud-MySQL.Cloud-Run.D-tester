@@ -1,6 +1,7 @@
 ### PHP Data Objects - PDO
 
 Connect throught socket.
+
 This help me https://www.php.net/pdo.construct
 ```
 <?php
