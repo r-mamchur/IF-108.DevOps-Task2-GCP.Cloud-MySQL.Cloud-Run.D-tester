@@ -4,7 +4,10 @@
 ```
 gcloud config set project if108-288707
 ```
-So, `"if108-288707"` is my &ltproject-id&gt
+So, `"if108-288707"` is my &lt project-id &gt
+
+  \<project-id\>
+
 
 [Pricing](https://cloud.google.com/run/pricing?hl=nb#tables)
 
