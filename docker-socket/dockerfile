@@ -71,7 +71,7 @@ RUN sed -i -e "s|'base_url'   => '/',|'base_url'   => '/api/',|g"  /var/www/dtap
  && sed -i -e "s|$tableName = \"groups\";|$tableName = \"dt_groups\";|g"  /var/www/dtapi/api/application/classes/Model/Group.php \
  && sed -i -e "s|PDO_MySQL|PDO|g"  /var/www/dtapi/api/application/config/database.php 
 
-COPY phpinfo.php /var/www/dtapi/api/phpinfo.php
+# COPY phpinfo.php /var/www/dtapi/api/phpinfo.php
 
 RUN chown apache:apache /var/www/ -R \
   && chmod 777 -R /var/www/
