@@ -4,13 +4,14 @@
 ```
 gcloud config set project if108-288707
 ```
-So, `"if108-288707"` is my <project-id>
+So, `"if108-288707"` is my &ltproject-id&gt
 
 [Pricing](https://cloud.google.com/run/pricing?hl=nb#tables)
+
 ### 1.Create MySql DB.  
-Create instance:   
 ***Warning*** about reuse the instance name -- [https://cloud.google.com/sql/faq?hl=en#reuse](https://cloud.google.com/sql/faq?hl=en#reuse) and  [https://googlecloudplatform.uservoice.com/forums/302613-cloud-sql/suggestions/9919266-bug-cannot-create-instance-with-the-same-name-as](https://googlecloudplatform.uservoice.com/forums/302613-cloud-sql/suggestions/9919266-bug-cannot-create-instance-with-the-same-name-as).   
 ```sh
+# Create instance:   
 gcloud sql instances create mysqldt \
 --tier=db-f1-micro \
 --zone=us-central1-f
@@ -40,7 +41,7 @@ There are `PROJECT-ID:REGION:INSTANCE-ID.`
 
 ### 2. Import DB
 [cloud.google.com/sql/docs/mysql/import](https://cloud.google.com/sql/docs/mysql/import-export/importing#gcloud)
-```
+```sh
 # Creating Storage Buckets
 gsutil mb gs://dumpdt
 
@@ -68,7 +69,7 @@ https://cloud.google.com/sql/docs/mysql/connect-run).
 - **b. Using the Cloud SQL Proxy** [https://cloud.google.com/sql/docs/mysql/connect-admin-proxy](
 https://cloud.google.com/sql/docs/mysql/connect-admin-proxy).   
 
-They're released in theair subdirectories.
+They're released in their subdirectories.
 
 Build image:   
 ```sh
@@ -83,8 +84,9 @@ gcloud beta run deploy dtapi-socket
 --platform managed 
 --add-cloudsql-instances if108-288707:us-central1:mysqldt 
 ```
-If allright we have output:
-```Deploying new service...
+If alright we have output:
+```sh
+Deploying new service...
   Setting IAM Policy...done
   Creating Revision... Revision deployment finished. Waiting for health check to begin...
   .done
@@ -96,16 +98,16 @@ Service [dtapi-socket] revision [dtapi-socket-00001-vet] has been deployed and i
 `https://dtapi-socket-z5m7rjds5q-uc.a.run.app` - URL of created service.
 
 Update this service with data for connecting to DB and getting URL for Back-End.
-```
+```sh
 gcloud beta run services update dtapi-socket \
 --region us-central1 \
 --platform managed \
 --memory 512Mi \
 --set-env-vars INSTANCE_CONNECTION_NAME="if108-288707:us-central1:mysqldt",\
-DBNAME="dtapi",\
-MYSQL_USER="dtapi",\
-MYSQL_PASSWORD="Passw0rd(",\
-URL_BE="https://dtapi-socket-z5m7rjds5q-uc.a.run.app/api/"
+	DBNAME="dtapi",\
+	MYSQL_USER="dtapi",\
+	MYSQL_PASSWORD="Passw0rd(",\
+	URL_BE="https://dtapi-socket-z5m7rjds5q-uc.a.run.app/api/"
 ```   
 For Cloud SQL Proxy it is the same.
 
