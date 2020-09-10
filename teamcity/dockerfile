@@ -1,0 +1,92 @@
+FROM alpine:3.9
+
+RUN apk update && \
+    apk upgrade && \
+    apk --no-cache add \
+    apache2 \
+    wget \
+    unzip \
+    git \
+    bash \
+    php7 \
+    php7-zip \
+    php7-gd \
+    php7-intl \
+    php7-soap \
+    php7-xmlrpc \
+    php7-opcache \
+    php7-mysqli \
+    php7-pdo_mysql\
+    php7-iconv \
+    php7-ctype \
+    php7-simplexml \
+    php7-apache2 \
+    php7-curl \
+    php7-fpm \
+    php7-opcache \
+    php7-xml \
+    php7-json \
+    php7-mbstring \
+    php7-pecl-mcrypt 
+
+
+RUN echo '<VirtualHost *:8080> ' > /etc/apache2/conf.d/dtapi.conf  && \
+    echo '  DocumentRoot /var/www/dtapi ' >> /etc/apache2/conf.d/dtapi.conf  && \
+    echo '  ErrorLog /var/log/apache2/dtapi_error.log ' >> /etc/apache2/conf.d/dtapi.conf  && \
+    echo '  CustomLog /var/log/apache2/dtapi_requests.log combined ' >> /etc/apache2/conf.d/dtapi.conf  && \
+    echo '  <Directory /var/www/dtapi/> ' >> /etc/apache2/conf.d/dtapi.conf  && \
+    echo '     AllowOverride All ' >> /etc/apache2/conf.d/dtapi.conf  && \
+    echo '     Require all granted ' >> /etc/apache2/conf.d/dtapi.conf  && \
+    echo '  </Directory> ' >> /etc/apache2/conf.d/dtapi.conf  && \
+    echo '</VirtualHost>' >> /etc/apache2/conf.d/dtapi.conf
+
+   
+RUN sed -i "s/#LoadModule\ rewrite_module/LoadModule\ rewrite_module/" /etc/apache2/httpd.conf \
+    && sed -i "s/#LoadModule\ session_module/LoadModule\ session_module/" /etc/apache2/httpd.conf \
+    && sed -i "s/#LoadModule\ session_cookie_module/LoadModule\ session_cookie_module/" /etc/apache2/httpd.conf \
+    && sed -i "s/#LoadModule\ session_crypto_module/LoadModule\ session_crypto_module/" /etc/apache2/httpd.conf \
+    && sed -i "s/#LoadModule\ deflate_module/LoadModule\ deflate_module/" /etc/apache2/httpd.conf \
+    && sed -i 's/80/8080/g' /etc/apache2/httpd.conf
+
+RUN mkdir /var/www/dtapi && mkdir /var/www/dtapi/api \
+   && wget https://github.com/koseven/koseven/archive/master.zip \
+   && unzip master.zip \
+   && rm master.zip \
+   && mv -f ./koseven-master/* /var/www/dtapi/api \
+   && rm -rf ./koseven-master
+
+RUN git clone https://github.com/yurkovskiy/dtapi
+
+RUN yes|cp -fr ./dtapi/* /var/www/dtapi/api \
+   && cp ./dtapi/.htaccess /var/www/dtapi/api/.htaccess \
+   && rm -rf ./dtapi \
+   && cp /var/www/dtapi/api/public/index.php /var/www/dtapi/api/index.php
+
+RUN sed -i -e "s|'base_url'   => '/',|'base_url'   => '/api/',|g"  /var/www/dtapi/api/application/bootstrap.php \
+ && sed -i -e "s|RewriteBase /|RewriteBase /api/|g"  /var/www/dtapi/api/.htaccess \
+ && sed -i -e "s|$tableName = \"groups\";|$tableName = \"dt_groups\";|g"  /var/www/dtapi/api/application/classes/Model/Group.php \
+ && sed -i -e "s|PDO_MySQL|PDO|g"  /var/www/dtapi/api/application/config/database.php 
+
+COPY /IF105  /var/www/dtapi       
+
+# COPY phpinfo.php /var/www/dtapi/api/phpinfo.php
+
+RUN chown apache:apache /var/www/ -R \
+  && chmod 777 -R /var/www/
+  
+ENV URL_BE="https://dtapi.if.ua/api/"   
+
+RUN mkdir /cloudsql; chmod 777 /cloudsql
+
+EXPOSE 8080
+
+COPY entrypoint.sh /usr/local/bin/
+
+RUN chmod 777 /usr/local/bin/entrypoint.sh
+
+RUN ln -s usr/local/bin/entrypoint.sh /entrypoint.sh # backwards compat
+
+ENTRYPOINT ["entrypoint.sh"]
+
+CMD ["/usr/sbin/httpd", "-D", "FOREGROUND"]
+
