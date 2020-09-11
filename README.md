@@ -85,6 +85,7 @@ gcloud beta run deploy dtapi-socket
 --platform managed 
 --add-cloudsql-instances if108-288707:us-central1:mysqldt 
 ```
+
 If alright we have output:
 ```sh
 Deploying new service...
