@@ -76,6 +76,8 @@ RUN wget https://dl.google.com/cloudsql/cloud_sql_proxy.linux.amd64 -O /usr/loca
 
 RUN chown apache:apache /var/www/ -R \
   && chmod 777 -R /var/www/
+
+RUN mkdir /cloudsql; chmod 777 /cloudsql
   
 ENV URL_BE="https://dtapi.if.ua/api/"   
 
