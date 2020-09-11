@@ -69,6 +69,8 @@ RUN sed -i -e "s|'base_url'   => '/',|'base_url'   => '/api/',|g"  /var/www/dtap
 
 COPY /IF105  /var/www/dtapi       
 
+# COPY phpinfo.php /var/www/dtapi/api/phpinfo.php
+
 RUN chown apache:apache /var/www/ -R \
   && chmod 777 -R /var/www/
   
