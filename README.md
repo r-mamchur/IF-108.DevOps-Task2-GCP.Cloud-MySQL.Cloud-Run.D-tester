@@ -1,5 +1,8 @@
 # Task2 - GCP. Cloud MySQL. Cloud Run. D-tester
 
+Scheme of our Infrastructure:
+![Scheme](./sheme.png)
+
 ### Before.
 ```
 gcloud config set project if108-288707
