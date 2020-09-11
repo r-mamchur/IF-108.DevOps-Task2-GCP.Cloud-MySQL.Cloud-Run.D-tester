@@ -115,4 +115,4 @@ gcloud beta run services update dtapi-socket \
 ```   
 For Cloud SQL Proxy it is the same.
 
-  
+[Из эпицентра Google Cloud Next ’19: полевые заметки CEO](https://habr.com/ru/post/452322/  )
